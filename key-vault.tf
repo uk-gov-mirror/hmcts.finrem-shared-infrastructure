@@ -20,3 +20,19 @@ module "finrem-vault" {
 output "vaultName" {
   value = module.finrem-vault.key_vault_name
 }
+
+data "azurerm_key_vault" "s2s_vault" {
+  name                = "s2s-${var.env}"
+  resource_group_name = "rpe-service-auth-provider-${var.env}"
+}
+
+data "azurerm_key_vault_secret" "finrem_citizen_s2s" {
+  name         = "microservicekey-finrem-citizen-ui"
+  key_vault_id = data.azurerm_key_vault.s2s_vault.id
+}
+
+resource "azurerm_key_vault_secret" "finrem_citizen_s2s" {
+  name         = "finrem-citizen-s2s-client-secret"
+  value        = data.azurerm_key_vault_secret.finrem_citizen_s2s.value
+  key_vault_id = module.finrem-vault.key_vault_id
+}
