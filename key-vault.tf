@@ -36,5 +36,3 @@ resource "azurerm_key_vault_secret" "finrem_citizen_s2s" {
   value        = data.azurerm_key_vault_secret.finrem_citizen_s2s.value
   key_vault_id = module.finrem-vault.key_vault_id
 }
-
-
