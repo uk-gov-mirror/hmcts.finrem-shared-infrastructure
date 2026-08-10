@@ -18,7 +18,7 @@ module "finrem-vault" {
 }
 
 data "azurerm_key_vault" "key_vault" {
-  name                = "$finrem-${var.env}"
+  name                = "finrem-${var.env}"
   resource_group_name = "finrem-${var.env}"
 }
 
