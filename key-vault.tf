@@ -18,6 +18,12 @@ module "finrem-vault" {
   grant_preview_jenkins_access = var.env == "aat"
 }
 
+data "azurerm_user_assigned_identity" "jenkins" {
+  name                = "jenkins-${var.env}-mi"
+  resource_group_name = "managed-identities-${var.env}-rg"
+}
+
+
 output "vaultName" {
   value = module.finrem-vault.key_vault_name
 }
